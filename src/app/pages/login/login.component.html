@@ -1,0 +1,54 @@
+<div class="login-container">
+  <div class="login-box">
+    <h2>Bem-vindo de volta</h2>
+    <p class="subtitulo">Acesse sua conta para continuar</p>
+
+    <form #formLogin="ngForm" (ngSubmit)="entrar(formLogin)">
+      <label for="email">E-mail</label>
+      <input
+        type="email"
+        id="email"
+        name="email"
+        [(ngModel)]="email"
+        required
+        email
+        #emailModel="ngModel"
+      />
+      <div
+        *ngIf="emailModel.invalid && (emailModel.dirty || emailModel.touched)"
+        class="error"
+      >
+        <small *ngIf="emailModel.errors?.['required']"
+          >E-mail é obrigatório.</small
+        >
+        <small *ngIf="emailModel.errors?.['email']">E-mail inválido.</small>
+      </div>
+
+      <label for="senha">Senha</label>
+      <input
+        type="password"
+        id="senha"
+        name="senha"
+        [(ngModel)]="senha"
+        required
+        minlength="6"
+        #senhaModel="ngModel"
+      />
+      <div
+        *ngIf="senhaModel.invalid && (senhaModel.dirty || senhaModel.touched)"
+        class="error"
+      >
+        <small *ngIf="senhaModel.errors?.['required']"
+          >Senha é obrigatória.</small
+        >
+        <small *ngIf="senhaModel.errors?.['minlength']"
+          >Senha deve ter pelo menos 6 caracteres.</small
+        >
+      </div>
+
+      <button type="submit" [disabled]="formLogin.invalid">Entrar</button>
+    </form>
+
+    <p class="link">Não tem conta? <a (click)="navegador()">Cadastre-se</a></p>
+  </div>
+</div>
